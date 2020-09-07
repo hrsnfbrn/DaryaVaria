@@ -1,0 +1,79 @@
+﻿@page
+@model DaryaVaria.Web.Pages.LaporanProdukModel
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "LaporanProduk";
+}
+
+<h1>Tabel Laporan Produk</h1>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-page="/BuatLaporan">Buat Laporan Baru</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LaporanProduk[0].NamaProduk)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LaporanProduk[0].TanggalProduksi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LaporanProduk[0].TanggalKadaluarsa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LaporanProduk[0].TanggalKonsumsi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LaporanProduk[0].CaraPemakaian)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LaporanProduk[0].User)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LaporanProduk)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NamaProduk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TanggalProduksi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TanggalKadaluarsa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TanggalKonsumsi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CaraPemakaian)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+                        
+                        <a asp-page="./Edit" asp-route-id="@item.IdProduk">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.IdProduk">Details</a> |
+                        @*<a asp-page="./Delete" asp-route-id="@item.IdProduk">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4 class="text-danger">Anda harus login terlebih dahulu</h4>
+}
