@@ -63,10 +63,12 @@
                         @Html.DisplayFor(modelItem => item.User.UserName)
                     </td>
                     <td>
-                        
-                        <a asp-page="./Edit" asp-route-id="@item.IdProduk">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.IdProduk">Details</a> |
-                        @*<a asp-page="./Delete" asp-route-id="@item.IdProduk">Delete</a>*@
+                        @if (Model.Roles.Contains("Admin"))
+                        {
+                            <a asp-page="./Edit" asp-route-id="@item.IdProduk">Edit</a>
+                            <a asp-page="./Details" asp-route-id="@item.IdProduk">Details</a>
+                            @*<a asp-page="./Delete" asp-route-id="@item.IdProduk">Delete</a>*@
+                        }
                     </td>
                 </tr>
             }

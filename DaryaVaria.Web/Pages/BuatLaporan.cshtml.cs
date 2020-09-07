@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DaryaVaria.Web.Data;
 using DaryaVaria.Web.Data.Business;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DaryaVaria.Web.Pages
 {
+    [Authorize]
     public class BuatLaporanModel : PageModel
     {
         private readonly DaryaVaria.Web.Data.ApplicationDbContext _context;
