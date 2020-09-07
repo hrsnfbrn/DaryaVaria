@@ -34,6 +34,8 @@ namespace DaryaVaria.Web.Data.Business
         [MaxLength(500)]
         public string CaraPemakaian { get; set; }
 
+        public string Status { get; set; }
+
         // inverse navigation and explicit foreign key
         public string UserId { get; set; }
         public IdentityUser User { get; set; }

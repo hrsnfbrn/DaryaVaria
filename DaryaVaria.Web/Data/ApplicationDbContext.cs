@@ -20,7 +20,9 @@ namespace DaryaVaria.Web.Data
         {
             base.OnModelCreating(builder);
 
-
+            builder.Entity<LaporanProduk>()
+                .Property(b => b.Status)
+                .HasDefaultValue("Open");
         }
     }
 }

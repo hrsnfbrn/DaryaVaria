@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using DaryaVaria.Web.Data;
 using DaryaVaria.Web.Data.Business;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace DaryaVaria.Web.Pages
 {
@@ -17,20 +18,33 @@ namespace DaryaVaria.Web.Pages
     {
         private readonly DaryaVaria.Web.Data.ApplicationDbContext _context;
 
-        public EditLaporanModel(DaryaVaria.Web.Data.ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public EditLaporanModel(DaryaVaria.Web.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
         public LaporanProduk LaporanProduk { get; set; }
+
+        public IList<SelectListItem> PilihanStatus => 
+            (new List<string>() { "Open", "Investigation", "Action", "Close" })
+            .Select(item => 
+            new SelectListItem
+            { 
+                Value = item, 
+                Text = item 
+            })
+            .ToList();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
-            }
+            }            
 
             LaporanProduk = await _context.LaporanProduk
                 .Include(l => l.User).FirstOrDefaultAsync(m => m.IdProduk == id);
@@ -39,7 +53,6 @@ namespace DaryaVaria.Web.Pages
             {
                 return NotFound();
             }
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

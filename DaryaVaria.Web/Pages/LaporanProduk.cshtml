@@ -13,9 +13,12 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <p>
-        <a asp-page="/BuatLaporan">Buat Laporan Baru</a>
-    </p>
+    @if (Model.Roles.Contains("User"))
+    {
+        <p>
+            <a asp-page="/BuatLaporan">Buat Laporan Baru</a>
+        </p>
+    }
     <table class="table">
         <thead>
             <tr>
@@ -36,6 +39,9 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.LaporanProduk[0].User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LaporanProduk[0].Status)
                 </th>
                 <th></th>
             </tr>
@@ -61,6 +67,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modeItem => item.Status)
                     </td>
                     <td>
                         @if (Model.Roles.Contains("Admin"))
