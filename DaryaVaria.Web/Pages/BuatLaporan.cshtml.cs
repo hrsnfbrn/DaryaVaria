@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DaryaVaria.Web.Pages
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class BuatLaporanModel : PageModel
     {
         private readonly DaryaVaria.Web.Data.ApplicationDbContext _context;
